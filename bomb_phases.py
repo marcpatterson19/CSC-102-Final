@@ -297,11 +297,12 @@ class Button(PhaseThread):
 # the toggle switches phase
 class Toggles(PhaseThread):
     def __init__(self, component, target, name="Toggles"):
-        super().__init__(name, component, target)
+        super().__init__(name, component, "0110")
 
     # runs the thread
     def run(self):
         # TODO
+        return self._component
         pass
 
     # returns the toggle switches state as a string
@@ -311,3 +312,4 @@ class Toggles(PhaseThread):
         else:
             # TODO
             pass
+
