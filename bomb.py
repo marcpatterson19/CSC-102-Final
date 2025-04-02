@@ -152,10 +152,12 @@ def check_phases():
 
 # handles a strike
 def strike():
-    global strikes_left
+    global strikes_left, timer
     
     # note the strike
     strikes_left -= 1
+    # losing a minute for every strike
+    timer._value -= 60
 
 # turns off the bomb
 def turn_off():
