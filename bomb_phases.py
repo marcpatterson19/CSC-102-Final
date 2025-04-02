@@ -190,7 +190,7 @@ class Timer(PhaseThread):
 # the keypad phase
 class Keypad(PhaseThread):
     def __init__(self, component, target, name="Keypad"):
-        super().__init__(name, component, target)
+        super().__init__(name, component, "68371843174837")
         # the default value is an empty string
         self._value = ""
 
