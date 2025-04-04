@@ -233,6 +233,7 @@ class Wires(PhaseThread):
     # runs the thread
     def run(self):
         # TODO
+        return self._component
         pass
 
     # returns the jumper wires state as a string
