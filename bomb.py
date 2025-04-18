@@ -192,3 +192,5 @@ gui.after(1000, bootup)
 
 # display the LCD GUI
 window.mainloop()
+# initialize pygame for audio
+pygame.init()
