@@ -1,7 +1,7 @@
 #################################
 # CSC 102 Defuse the Bomb Project
 # GUI and Phase class definitions
-# Team: 
+# Team: Jits
 #################################
 
 # import the configs
@@ -13,6 +13,7 @@ from threading import Thread
 from time import sleep
 import os
 import sys
+import pygame
 
 #########
 # classes
