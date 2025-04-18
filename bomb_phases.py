@@ -306,9 +306,9 @@ class Button(PhaseThread):
 
 # the toggle switches phase
 class Toggles(PhaseThread):
-    def __init__(self, pin, target, name="Toggles"):
-        super().__init__(name, pin, "0110")
-
+    def __init__(self, pins, target, name="Toggles"):
+        super().__init__(name, pins, "0110")
+        self._pins = pins
     # runs the thread
     def run(self):
         self._running = True
