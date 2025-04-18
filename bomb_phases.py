@@ -1,7 +1,7 @@
 #################################
 # CSC 102 Defuse the Bomb Project
 # GUI and Phase class definitions
-# Team: Jits
+# Team: Jhits
 #################################
 
 # import the configs
@@ -13,7 +13,6 @@ from threading import Thread
 from time import sleep
 import os
 import sys
-import pygame
 
 #########
 # classes
@@ -228,13 +227,23 @@ class Keypad(PhaseThread):
 
 # the jumper wires phase
 class Wires(PhaseThread):
-    def __init__(self, component, target, name="Wires"):
-        super().__init__(name, component, target)
+    def __init__(self, pins, target, name="Wires"):
+        super().__init__(name, pins, "11111")
+        self._value = ""
+        # the jumper wire pins
+        self._pins = pins
 
     # runs the thread
     def run(self):
+        self._running = True
+        while (True):
+            # get the jumper wire states (0->False, 1->True)
+            self._value = "".join([str(int(pin.value)) for pin in self._pins])
+            sleep(0.1)
+            if (self._value == self._target):
+                self._defused = True
+        self._running = False
         # TODO
-        return self._component
         pass
 
     # returns the jumper wires state as a string
@@ -242,8 +251,7 @@ class Wires(PhaseThread):
         if (self._defused):
             return "DEFUSED"
         else:
-            # TODO
-            pass
+            return f"{self._value}/{int(self._value, 2)}"
 
 # the pushbutton phase
 class Button(PhaseThread):
@@ -298,20 +306,24 @@ class Button(PhaseThread):
 
 # the toggle switches phase
 class Toggles(PhaseThread):
-    def __init__(self, component, target, name="Toggles"):
-        super().__init__(name, component, "0110")
+    def __init__(self, pin, target, name="Toggles"):
+        super().__init__(name, pin, "0110")
 
     # runs the thread
     def run(self):
-        # TODO
-        return self._component
-        pass
+        self._running = True
+        while (True):
+            self._value = "".join([str(int(pin.value)) for pin in self._pins])
+            sleep(0.1)
+            if (self._value == self._target):
+                self._defused = True
+        self._running = False
+        pass    
 
     # returns the toggle switches state as a string
     def __str__(self):
         if (self._defused):
             return "DEFUSED"
         else:
-            # TODO
-            pass
+            return f"{self._value}/{int(self._value, 2)}"
 
