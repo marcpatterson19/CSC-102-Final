@@ -1,7 +1,7 @@
 #################################
 # CSC 102 Defuse the Bomb Project
 # GUI and Phase class definitions
-# Team: Jhits
+# Team: Jhits Darrien Miller, Marc Patterson, Dylane Demeza
 #################################
 
 # import the configs
