@@ -133,6 +133,7 @@ def check_phases():
     gui._lstrikes["text"] = f"Strikes left: {strikes_left}"
     # too many strikes -> explode!
     if (strikes_left == 0):
+        # add explosion sound code here
         # turn off the bomb and render the conclusion GUI
         turn_off()
         gui.after(1000, gui.conclusion, False)
