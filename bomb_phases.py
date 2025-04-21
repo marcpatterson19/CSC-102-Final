@@ -171,6 +171,12 @@ class Timer(PhaseThread):
             else:
                 sleep(0.1)
 
+    # plays a ticking sound while the bomb is running.
+    def playsound(self):
+        pygame.mixer.music.load("bomb_tick.mp3")
+        while (self._running):
+            pygame.mixer.music.play(-1)
+            
     # updates the timer (only internally called)
     def _update(self):
         self._min = f"{self._value // 60}".zfill(2)
