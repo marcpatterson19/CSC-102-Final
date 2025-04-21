@@ -1,7 +1,7 @@
 #################################
 # CSC 102 Defuse the Bomb Project
 # Main program
-# Team: Jits, Darrien Miller, 
+# Team: Jits, Darrien Miller, Marc Patterson, Dylane Demeza
 #################################
 
 # import the configs
