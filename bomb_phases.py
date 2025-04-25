@@ -296,9 +296,9 @@ class Button(PhaseThread):
                     # check the release parameters
                     # for R, nothing else is needed
                     # for G or B, a specific digit must be in the timer (sec) when released
-                    if (Toggles._defused = True):
-                        if (Wires._defused = True):
-                            if (Keypad._defused = True):
+                    if (Toggles._defused == True):
+                        if (Wires._defused == True):
+                            if (Keypad._defused == True):
                                 self._defused = True
                     else:
                         self._failed = True
