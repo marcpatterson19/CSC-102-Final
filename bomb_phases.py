@@ -296,10 +296,13 @@ class Button(PhaseThread):
                     # check the release parameters
                     # for R, nothing else is needed
                     # for G or B, a specific digit must be in the timer (sec) when released
-                    if (not self._target or self._target in self._timer._sec):
-                        self._defused = True
+                    if (Toggles._defused = True):
+                        if (Wires._defused = True):
+                            if (Keypad._defused = True):
+                                self._defused = True
                     else:
                         self._failed = True
+                        Timer._value = 0
                     # note that the pushbutton was released
                     self._pressed = False
             sleep(0.1)
