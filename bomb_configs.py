@@ -147,22 +147,16 @@ def genKeypadCombination():
         return combination
 
     # the list of keywords and matching passphrases
-    keywords = { "BANDIT": "RIVER",\
-                 "BUCKLE": "FADED",\
-                 "CANOPY": "FOXES",\
-                 "DEBATE": "THROW",\
-                 "FIERCE": "TRICK",\
-                 "GIFTED": "CYCLE",\
-                 "IMPACT": "STOLE",\
-                 "LONELY": "TOADY",\
-                 "MIGHTY": "ALOOF",\
-                 "NATURE": "CARVE",\
-                 "REBORN": "CLIMB",\
-                 "RECALL": "FEIGN",\
-                 "SYSTEM": "LEAVE",\
-                 "TAKING": "SPINY",\
-                 "WIDELY": "BOUND",\
-                 "ZAGGED": "YACHT" }
+    keywords = { "THE MAN ON THE LAKERS": "LEBRON JAMES",\
+                 "AKA THE VICE CITY": "MIAMI",\
+                 "THE OCEAN ON THE EAST COAST": "ATLANTIC OCEAN",\
+                 "AKA THE SIN CITY": "LAS VEGAS",\
+                 "SUPER BOWL CHAMPS": "PHILADELPHIA EAGLES",\
+                 "UNIVERSITY OF TAMPA...": "SPARTANS",\
+                 "STATE SHAPED LIKE A MITTEN": "MICHIGAN",\
+                 "AKA THE LONE STAR STATE": "TEXAS",\
+                 "STATE OF HOLLYWOOD BLVD": "CALIFORNIA",\
+                 "THE NAME OF THE COAST WE ARE ON. NOT GULF.": "SUN COAST"}
     # the rotation cipher key
     rot = randint(1, 25)
 
