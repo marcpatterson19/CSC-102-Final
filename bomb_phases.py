@@ -331,6 +331,7 @@ class Toggles(PhaseThread):
         pass    
 
     # use bin() to convert decimal to binary - for future reference
+    # use hex() for the same but to hex
     
     # returns the toggle switches state as a string
     def __str__(self):
