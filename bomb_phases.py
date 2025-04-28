@@ -199,7 +199,7 @@ class Keypad(PhaseThread):
         super().__init__(name, component, target)
         # the default value is an empty string
         self._value = ""
-        self._target = passphrase
+        self._target = keypad_target
 
     # runs the thread
     def run(self):
