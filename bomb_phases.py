@@ -330,6 +330,8 @@ class Toggles(PhaseThread):
         self._running = False
         pass    
 
+    # use bin() to convert decimal to binary - for future reference
+    
     # returns the toggle switches state as a string
     def __str__(self):
         if (self._defused):
