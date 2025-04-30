@@ -312,6 +312,12 @@ class Button(PhaseThread):
                     # note that the pushbutton was released
                     self._pressed = False
             sleep(0.1)
+            
+    def change_color(self):
+        while (self._running):
+            change = randint(0,2)
+            self._rgb[change]
+            sleep(randint(5,10))
 
     # returns the pushbutton's state as a string
     def __str__(self):
