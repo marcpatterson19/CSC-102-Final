@@ -213,4 +213,6 @@ boot_text = f"Booting...\n\x00\x00"\
             f"*Keyword: {cipher_keyword}; key: {rot}\n"\
             f"*{' '.join(ascii_uppercase)}\n"\
             f"*{' '.join([str(n % 10) for n in range(26)])}\n"\
+            #Need to add the hex value for the wires into configs to display the hint value.
+            #f"*Wires hint: {hex_val}\n"
             f"Rendering phases...\x00"
