@@ -235,10 +235,16 @@ class Keypad(PhaseThread):
 # the jumper wires phase
 class Wires(PhaseThread):
     def __init__(self, pins, target, name="Wires"):
-        super().__init__(name, pins, "11111")
+        super().__init__(name, pins, target)
         self._value = ""
         # the jumper wire pins
         self._pins = pins
+        # generating a hex value to convert into binary, hex value used as a hint
+        hex_val = hex(randint(2, 31))[2:]
+        # converting hex value into integer in order to be converted to binary
+        temp = int(h, 16)
+        # setting the target to the binary of the value
+        self._target = bin(t)[2:]
 
     # runs the thread
     def run(self):
@@ -319,6 +325,8 @@ class Toggles(PhaseThread):
     def __init__(self, pins, target, name="Toggles"):
         super().__init__(name, pins, "0110")
         self._pins = pins
+        # toggles will be wires value / 2 rounded up.
+    
     # runs the thread
     def run(self):
         self._running = True
