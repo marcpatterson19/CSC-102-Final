@@ -242,9 +242,9 @@ class Wires(PhaseThread):
         # generating a hex value to convert into binary, hex value used as a hint
         hex_val = hex(randint(2, 30))[2:]
         # converting hex value into integer in order to be converted to binary
-        temp = int(h, 16)
+        temp = int(hex_val, 16)
         # setting the target to the binary of the value
-        self._target = bin(t)[2:]
+        self._target = bin(temp)[2:]
 
     # runs the thread
     def run(self):
