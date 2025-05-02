@@ -14,6 +14,9 @@ from time import sleep
 import os
 import sys
 
+toggle = 1
+wires = 1
+keypad = 1
 #########
 # classes
 #########
@@ -165,7 +168,7 @@ class Timer(PhaseThread):
                 # wait 1s (default) and continue
                 sleep(self._interval)
                 # the timer has expired -> phase failed (explode)
-                if (self._value == 0):
+                if (self._value <= 0):
                     self._running = False
                 self._value -= 1
             else:
@@ -228,6 +231,7 @@ class Keypad(PhaseThread):
     # returns the keypad combination as a string
     def __str__(self):
         if (self._defused):
+            keypad += 1
             return "DEFUSED"
         else:
             return self._value
@@ -235,11 +239,11 @@ class Keypad(PhaseThread):
 # the jumper wires phase
 class Wires(PhaseThread):
     def __init__(self, pins, target, name="Wires"):
-        super().__init__(name, pins, target)
+        super().__init__(name, pins, bin_val)
         self._value = ""
         # the jumper wire pins
         self._pins = pins
-        # setting the target to the binary value from configs
+        # the target is thee binary value set in configs
         self._target = bin_val
 
     # runs the thread
@@ -258,6 +262,7 @@ class Wires(PhaseThread):
     # returns the jumper wires state as a string
     def __str__(self):
         if (self._defused):
+            wires += 1
             return "DEFUSED"
         else:
             return f"{self._value}/{int(self._value, 2)}"
@@ -298,22 +303,15 @@ class Button(PhaseThread):
                     # check the release parameters
                     # for R, nothing else is needed
                     # for G or B, a specific digit must be in the timer (sec) when released
-                    if (Toggles._defused == True):
-                        if (Wires._defused == True):
-                            if (Keypad._defused == True):
-                                self._defused = True
-                    else:
-                        self._failed = True
-                        Timer._value = 0
+                    if (toggle == 2):
+                        self._defused = True
+                    # else:
+                        # self._failed = True
+                        # Timer._value = 0
                     # note that the pushbutton was released
                     self._pressed = False
             sleep(0.1)
             
-    def change_color(self):
-        while (self._running):
-            change = randint(0,2)
-            self._rgb[change]
-            sleep(randint(5,10))
 
     # returns the pushbutton's state as a string
     def __str__(self):
@@ -325,9 +323,10 @@ class Button(PhaseThread):
 # the toggle switches phase
 class Toggles(PhaseThread):
     def __init__(self, pins, target, name="Toggles"):
-        super().__init__(name, pins, "0110")
+        super().__init__(name, pins, tog_val)
         self._pins = pins
-        # toggles will be wires value / 2 rounded up.
+        # toggles will be wires value / 2 rounded down.
+        self._target = tog_val
     
     # runs the thread
     def run(self):
@@ -340,13 +339,11 @@ class Toggles(PhaseThread):
         self._running = False
         pass    
 
-    # use bin() to convert decimal to binary - for future reference
-    # use hex() for the same but to hex
     
     # returns the toggle switches state as a string
     def __str__(self):
         if (self._defused):
+            toggle = 1
             return "DEFUSED"
         else:
             return f"{self._value}/{int(self._value, 2)}"
-
