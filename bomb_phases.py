@@ -110,9 +110,18 @@ class Lcd(Frame):
         self._bquit = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 18), text="Quit", anchor=CENTER, command=self.quit)
         self._bquit.grid(row=1, column=2, pady=40)
         # the failure screen
-        self._ifail = tkinter.PhotoImage(file = 'explode2.png')
-        self._sfail = tkinter.Label(master, image = self._ifail, anchor=TOP)
-        self._sfail.pack()
+        if success:
+            self._iresult = tkinter.PhotoImage(file='defused.png')  # <- your success image
+            result_text = "Bomb Successfully Defused!"
+        else:
+            self._iresult = tkinter.PhotoImage(file='explode2.png')  # <- your failure image
+            result_text = "BOOM! The Bomb Exploded."
+
+        self._sresult = tkinter.Label(master, image=self._iresult, anchor=TOP)
+        self._sresult.pack()
+
+        self._lresult = Label(self, text=result_text, bg="black", fg="white")
+        self._lresult.grid(row=0, column=0, columnspan=3)
 
     # re-attempts the bomb (after an explosion or a successful defusion)
     def retry(self):
