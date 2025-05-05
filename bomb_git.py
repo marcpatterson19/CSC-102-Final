@@ -9,6 +9,8 @@ from bomb_configs import *
 # import the phases
 from bomb_phases import *
 
+import pygame
+
 ###########
 # functions
 ###########
