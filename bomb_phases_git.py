@@ -100,12 +100,17 @@ class Lcd(Frame):
             self._bquit.destroy()
 
         # reconfigure the GUI
+        
         # the retry button
         self._bretry = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 18), text="Retry", anchor=CENTER, command=self.retry)
         self._bretry.grid(row=1, column=0, pady=40)
         # the quit button
         self._bquit = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 18), text="Quit", anchor=CENTER, command=self.quit)
         self._bquit.grid(row=1, column=2, pady=40)
+        # the failure screen
+        self._ifail = tkinter.PhotoImage(file = 'explode2.png')
+        self._sfail = tkinter.Label(master, image = self._ifail, anchor=TOP)
+        self._sfail.pack()
 
     # re-attempts the bomb (after an explosion or a successful defusion)
     def retry(self):
