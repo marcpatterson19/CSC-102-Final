@@ -13,6 +13,7 @@ from threading import Thread
 from time import sleep
 import os
 import sys
+import pygame
 
 toggle = 1
 wires = 1
@@ -165,6 +166,9 @@ class Timer(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
+         # Start ticking sound in background
+        Thread(target=self.playsound, daemon=True).start()
+    
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
@@ -181,9 +185,14 @@ class Timer(PhaseThread):
 
     # plays a ticking sound while the bomb is running.
     def playsound(self):
-        pygame.mixer.music.load("bomb_tick.mp3")
-        while (self._running):
-            pygame.mixer.music.play(-1)
+        try:
+            pygame.mixer.music.load("bomb_tick.mp3")
+            pygame.mixer.music.play(-1)  # Loop the ticking
+            while self._running:
+                sleep(0.1)
+            pygame.mixer.music.stop()  # Stop when timer ends
+        except Exception as e:
+            print(f"[Sound Error] {e}")
             
     # updates the timer (only internally called)
     def _update(self):
