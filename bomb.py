@@ -9,8 +9,6 @@ from bomb_configs import *
 # import the phases
 from bomb_phases import *
 
-import pygame
-
 ###########
 # functions
 ###########
@@ -48,12 +46,13 @@ def setup_phases():
     keypad = Keypad(component_keypad, keypad_target)
     # setup the jumper wires thread
     wires = Wires(component_wires, wires_target)
-    # setup the pushbutton thread
-    button = Button(component_button_state, component_button_RGB, button_target, button_color, timer)
-    # bind the pushbutton to the LCD GUI so that its LED can be turned off when we quit
-    gui.setButton(button)
     # setup the toggle switches thread
     toggles = Toggles(component_toggles, toggles_target)
+    # setup the pushbutton thread
+    button = Button(component_button_state, component_button_RGB, button_target, button_color, timer, wires, keypad, toggles)
+    # bind the pushbutton to the LCD GUI so that its LED can be turned off when we quit
+    gui.setButton(button)
+    
 
     # start the phase threads
     timer.start()
@@ -68,9 +67,6 @@ def check_phases():
     
     # check the timer
     if (timer._running):
-        # playing the bomb ticking noise while the timer is running
-        pygame.mixer.music.load("bomb_tick.mp3")
-        pygame.mixer.music.play(-1)
         # update the GUI
         gui._ltimer["text"] = f"Time left: {timer}"
     else:
