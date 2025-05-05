@@ -15,10 +15,10 @@ import os
 import sys
 import pygame
 
-toggle = 1
-wires = 1
+
+
 pygame.mixer.init()
-keypad = 1
+
 #########
 # classes
 #########
@@ -184,6 +184,7 @@ class Timer(PhaseThread):
             else:
                 sleep(0.1)
 
+   
     # plays a ticking sound while the bomb is running.
     def playsound(self):
         try:
@@ -218,6 +219,7 @@ class Keypad(PhaseThread):
         # the default value is an empty string
         self._value = ""
         self._target = keypad_target
+        self._defused = False
 
     # runs the thread
     def run(self):
@@ -246,7 +248,6 @@ class Keypad(PhaseThread):
     # returns the keypad combination as a string
     def __str__(self):
         if (self._defused):
-            keypad += 1
             return "DEFUSED"
         else:
             return self._value
@@ -260,6 +261,7 @@ class Wires(PhaseThread):
         self._pins = pins
         # the target is thee binary value set in configs
         self._target = bin_val
+        self._defused = False
 
     # runs the thread
     def run(self):
@@ -277,14 +279,13 @@ class Wires(PhaseThread):
     # returns the jumper wires state as a string
     def __str__(self):
         if (self._defused):
-            wires += 1
             return "DEFUSED"
         else:
             return f"{self._value}/{int(self._value, 2)}"
 
 # the pushbutton phase
 class Button(PhaseThread):
-    def __init__(self, component_state, component_rgb, target, color, timer, name="Button"):
+    def __init__(self, component_state, component_rgb, target, color, timer, wires, keypad, toggles, name="Button"):
         super().__init__(name, component_state, target)
         # the default value is False/Released
         self._value = False
@@ -296,6 +297,10 @@ class Button(PhaseThread):
         self._color = color
         # we need to know about the timer (7-segment display) to be able to determine correct pushbutton releases in some cases
         self._timer = timer
+        # referencing other phases to have the bomb blow if they aren't defused
+        self._wires = wires
+        self._keypad = keypad
+        self._toggles = toggles
 
     # runs the thread
     def run(self):
@@ -318,10 +323,10 @@ class Button(PhaseThread):
                     # check the release parameters
                     # for R, nothing else is needed
                     # for G or B, a specific digit must be in the timer (sec) when released
-                    if (toggle == 2):
+                    if self._toggles._defused and self._wires._defused and self._keypad._defused:
                         self._defused = True
-                    # else:
-                        # self._failed = True
+                    else:
+                        self._failed = True
                         # Timer._value = 0
                     # note that the pushbutton was released
                     self._pressed = False
@@ -342,6 +347,7 @@ class Toggles(PhaseThread):
         self._pins = pins
         # toggles will be wires value / 2 rounded down.
         self._target = tog_val
+        self._defused = False
     
     # runs the thread
     def run(self):
@@ -354,16 +360,10 @@ class Toggles(PhaseThread):
         self._running = False
         pass    
 
-    def defu(self):
-        if (self._defused):
-            return toggle == 1
-        else:
-            return toggle == 0
         
     # returns the toggle switches state as a string
     def __str__(self):
         if (self._defused):
-            toggle = 1
             return "DEFUSED"
         else:
             return f"{self._value}/{int(self._value, 2)}"
