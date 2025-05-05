@@ -191,12 +191,15 @@ def genWiresnToggleVals():
     # converting hex value into integer in order to be converted to binary
     temp = int(hex_val, 16)
     # setting the target to the binary of the value
-    bin_val = bin(temp)[2:]
+    bin_val = bin(temp)[2:].zfill(5)
+    # creating the toggle value
     
-    return hex_val, bin_val
+    tog_val = bin(temp // 2)[2:].zfill(4)
+    
+    return hex_val, bin_val, tog_val
 
 #setting the values for the targets
-hex_val, bin_val = genWiresnTogglesVals()
+hex_val, bin_val, tog_val = genWiresnToggleVals()
 
 # generate the color of the pushbutton (which determines how to defuse the phase)
 button_color = choice(["R", "G", "B"])
@@ -226,6 +229,5 @@ boot_text = f"Booting...\n\x00\x00"\
             f"*Keyword: {cipher_keyword}; key: {rot}\n"\
             f"*{' '.join(ascii_uppercase)}\n"\
             f"*{' '.join([str(n % 10) for n in range(26)])}\n"\
-            #Need to add the hex value for the wires into configs to display the hint value.
             f"*Wires hint: {hex_val}\n"\
             f"Rendering phases...\x00"
