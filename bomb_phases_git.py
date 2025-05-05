@@ -17,6 +17,7 @@ import pygame
 
 toggle = 1
 wires = 1
+pygame.mixer.init()
 keypad = 1
 #########
 # classes
