@@ -354,7 +354,12 @@ class Toggles(PhaseThread):
         self._running = False
         pass    
 
-    
+    def defu(self):
+        if (self._defused):
+            return toggle == 1
+        else:
+            return toggle == 0
+        
     # returns the toggle switches state as a string
     def __str__(self):
         if (self._defused):
