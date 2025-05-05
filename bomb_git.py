@@ -66,6 +66,9 @@ def check_phases():
     
     # check the timer
     if (timer._running):
+        # playing the bomb ticking noise while the timer is running
+        pygame.mixer.music.load("bomb_tick.mp3")
+        pygame.mixer.music.play(-1)
         # update the GUI
         gui._ltimer["text"] = f"Time left: {timer}"
     else:
