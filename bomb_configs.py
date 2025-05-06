@@ -231,3 +231,4 @@ boot_text = f"Booting...\n\x00\x00"\
             f"*{' '.join([str(n % 10) for n in range(26)])}\n"\
             f"*Wires hint: {hex_val}\n"\
             f"Rendering phases...\x00"
+
