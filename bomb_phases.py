@@ -100,6 +100,12 @@ class Lcd(Frame):
         if (SHOW_BUTTONS):
             self._bpause.destroy()
             self._bquit.destroy()
+            
+        # explosion sound
+        if not success:
+            # cannot play sound effect at full volume without blowing out speaker, keep volume at half
+            pygame.mixer.music.load("bombo2.mp3")
+            pygame.mixer.music.play(1)
 
         # reconfigure the GUI
         
@@ -109,19 +115,20 @@ class Lcd(Frame):
         # the quit button
         self._bquit = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 18), text="Quit", anchor=CENTER, command=self.quit)
         self._bquit.grid(row=1, column=2, pady=40)
-        # the failure screen
+        # the success and failure screen
         if success:
-            self._iresult = tkinter.PhotoImage(file='defused.png')  # <- your success image
+            self._iresult = tkinter.PhotoImage(file='win.jpeg')  # <- your success image
             result_text = "Bomb Successfully Defused!"
         else:
             self._iresult = tkinter.PhotoImage(file='explode2.png')  # <- your failure image
             result_text = "BOOM! The Bomb Exploded."
 
-        self._sresult = tkinter.Label(master, image=self._iresult, anchor=TOP)
-        self._sresult.pack()
+        # setting the success or failure image
+        self._sresult = tkinter.Label(self, image=self._iresult)
+        self._sresult.grid(row=0, column='0', columnspan=3)
 
         self._lresult = Label(self, text=result_text, bg="black", fg="white")
-        self._lresult.grid(row=0, column=0, columnspan=3)
+        self._lresult.grid(row=1, column=0, columnspan=3)
 
     # re-attempts the bomb (after an explosion or a successful defusion)
     def retry(self):
@@ -323,8 +330,11 @@ class Button(PhaseThread):
             self._value = self._component.value
             # it is pressed
             if (self._value):
-                # note it
                 self._pressed = True
+                
+                if not (self._toggles._defused and self._wires._defused and self._keypad._defused):
+                    self._failed = True
+                    self._timer._value = 0
             # it is released
             else:
                 # was it previously pressed?
@@ -336,7 +346,7 @@ class Button(PhaseThread):
                         self._defused = True
                     else:
                         self._failed = True
-                        # Timer._value = 0
+                        
                     # note that the pushbutton was released
                     self._pressed = False
             sleep(0.1)
